@@ -62,7 +62,7 @@ impl<'a> CheckParenthesesStateMachine<'a> {
             }
             ParenthesesState::AwaitingSting => {
                 println!(
-                    "Enter string for searching in or\n{}",
+                    "Enter string for checking parentheses balance or\n{}",
                     [
                         ParenthesesCommands::MainMenu.to_text(),
                         ParenthesesCommands::Exit.to_text()

@@ -139,10 +139,17 @@ impl<'a> SimplifiedBoyerMoorStateMachine<'a> {
             (_, Some(FinderCommands::MainMenu)) => Res::MainMenu,
             (_, Some(FinderCommands::Exit)) => Res::Exit,
             (
-                FinderState::Start | FinderState::AwaitingPattern,
+                FinderState::Start | FinderState::AwaitingCommand | FinderState::AwaitingPattern,
                 Some(FinderCommands::EnterString),
             ) => {
                 self.state = FinderState::AwaitingSting;
+                Res::Repeat
+            }
+            (
+                FinderState::Start | FinderState::AwaitingCommand | FinderState::AwaitingSting,
+                Some(FinderCommands::EnterPattern),
+            ) => {
+                self.state = FinderState::AwaitingPattern;
                 Res::Repeat
             }
             (FinderState::AwaitingSting, _) => self.handle_string(input),
@@ -176,7 +183,7 @@ impl<'a> SimplifiedBoyerMoorStateMachine<'a> {
             self.string
                 .to_lowercase()
                 .match_indices(&self.pattern.to_lowercase())
-                .map(|(i, _)| i)
+                .map(|(i, _)| self.string[..i].chars().count())
                 .collect::<Vec<_>>()
         } else {
             self.string

@@ -113,7 +113,10 @@ impl<'a> KochCurveDrawerStateMachine<'a> {
                 let start = Instant::now();
                 draw_koch_curve(depth);
                 let duration = start.elapsed();
-                println!("Time elapsed in drawing fractal: {:?}", duration);
+                println!(
+                    "Time elapsed in drawing fractal: {:?}",
+                    duration.as_micros()
+                );
                 println!("You can find the result in koch.svg");
                 Res::Repeat
             }
