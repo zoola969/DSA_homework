@@ -19,9 +19,9 @@ pub fn boyer_moor_search(string: &str, template: &str, case_sensitive: bool) -> 
     let mut result: Vec<usize> = Vec::new();
     let mut i = 0;
     let mut j: usize;
-    while i <= (string.len() - template.len()) {
-        j = i + template.len();
-        if let Some(k) = find_dif(&string_vec[i..j], &template_vec, template.len() - 1) {
+    while i <= (string_vec.len() - template_vec.len()) {
+        j = i + template_vec.len();
+        if let Some(k) = find_dif(&string_vec[i..j], &template_vec, template_vec.len() - 1) {
             let abs_idx = i + k;
             match last_occ.get(&string_vec[abs_idx]) {
                 None => i = abs_idx + 1,

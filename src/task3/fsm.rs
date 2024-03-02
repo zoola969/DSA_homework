@@ -181,7 +181,7 @@ impl<'a> SimplifiedBoyerMoorStateMachine<'a> {
         } else {
             self.string
                 .match_indices(&self.pattern)
-                .map(|(i, _)| i)
+                .map(|(i, _)| self.string[..i].chars().count())
                 .collect::<Vec<_>>()
         };
         println!(
